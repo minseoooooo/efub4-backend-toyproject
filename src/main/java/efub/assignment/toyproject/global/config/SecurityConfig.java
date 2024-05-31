@@ -27,7 +27,13 @@ public class SecurityConfig {
         // 만약 "https://test.com"라는 도메인을 전달받았다면, 아래 코드에 추가로 다음과 같이 입력합니다.
         // configuration.setAllowedOrigins(Arrays.asList(..., "https://test.com"));
         configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:3000", "https://team5-toytter.vercel.app/"));
+                "http://localhost:3000"));
+
+        configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.addAllowedOrigin("http://localhost:5173");
+        configuration.addAllowedOrigin("http://localhost:5174");
+        configuration.addAllowedOrigin("https://team5-toytter.vercel.app/");
+
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
@@ -48,7 +54,6 @@ public class SecurityConfig {
         http.httpBasic(AbstractHttpConfigurer::disable);
 
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/**").permitAll()
                 .anyRequest().permitAll()
         );
 
